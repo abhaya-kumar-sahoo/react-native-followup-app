@@ -44,39 +44,6 @@ export const NextButton = ({
   );
 };
 
-export const AccentButton = ({
-  onPress = () => {},
-  title = 'Post',
-  style = {},
-  disabled = false,
-}) => {
-  return (
-    <Ripple
-      disabled={disabled}
-      onPress={() => onPress()}
-      style={{
-        backgroundColor: disabled ? AppColors.LightGrey : AppColors.Red,
-        paddingVertical: 5,
-        paddingHorizontal: 16,
-        borderRadius: 30,
-        ...style,
-        justifyContent:"center",
-        alignItems:"center"
-      }}
-    >
-      <Text
-        style={{
-          fontSize: FontSize.large,
-          fontFamily: AppFonts.CalibriBold,
-          color: AppColors.white,
-          fontWeight:"900"
-        }}
-      >
-        {title}
-      </Text>
-    </Ripple>
-  );
-};
 
 export const Container = ({
   padding = Spacing.large,
