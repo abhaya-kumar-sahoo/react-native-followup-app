@@ -3,7 +3,7 @@ import OTPInputView from '@twotalltotems/react-native-otp-input';
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { AppColors } from '../../assets/AppColors';
+import { AppColors } from 'assets/AppColors';
 import { AppFonts } from '../../assets/fonts/AppFonts';
 import { NextButton } from '../../Components';
 import { AppHeader } from '../../Components/AppHeader';

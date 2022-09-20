@@ -1,8 +1,7 @@
-import React, { Component,useState } from 'react';
+import React, { useState } from 'react';
 import {
   Pressable,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';

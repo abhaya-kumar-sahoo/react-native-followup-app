@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 
-import {View, Text, Pressable} from 'react-native';
+import {View, Pressable} from 'react-native';
 import {AppColors} from '../assets/AppColors';
 import {GStyles, Spacing} from '../shared/Global.styles';
 import {BackArrowIcon} from '../shared/Icon.Comp';

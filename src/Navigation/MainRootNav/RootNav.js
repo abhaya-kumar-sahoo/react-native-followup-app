@@ -3,17 +3,17 @@ import * as React from 'react';
 import {View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {LoginScreen} from '../Screens/Login/LoginScreen';
-import { OtpVerification } from '../Screens/Login/OtpVerification';
-import { ProfileScreen } from '../Screens/Profile/ProfileScreen';
-import {AddList} from '../Screens/AddList/AddList'
-import {EnterActivity} from '../Screens/EnterActivity/EnterActivity'
-import { JourneyScreen } from '../Screens/Journey/JourneyScreen';
-import { ActivityList } from '../Screens/ActivityList/ActivityList';
-import { PhotosList } from '../Screens/PhotoList/PhotosList';
-import { Calender } from '../Screens/Calender/Calender';
-import { YearPicker } from '../Screens/Calender/YearPicker';
-import { MonthPicker } from '../Screens/Calender/MonthPicker';
+import {LoginScreen} from '../../Screens/Authentication/LoginScreen';
+import { OtpVerification } from '../../Screens/Authentication/OtpVerification';
+import { ProfileScreen } from '../../Screens/Profile/ProfileScreen';
+import {AddList} from '../../Screens/AddList/AddList'
+import {EnterActivity} from '../../Screens/EnterActivity/EnterActivity'
+import { JourneyScreen } from '../../Screens/Journey/JourneyScreen';
+import { ActivityList } from '../../Screens/ActivityList/ActivityList';
+import { PhotosList } from '../../Screens/PhotoList/PhotosList';
+import { Calender } from '../../Screens/Calender/Calender';
+import { YearPicker } from '../../Screens/Calender/YearPicker';
+import { MonthPicker } from '../../Screens/Calender/MonthPicker';
 const Stack = createNativeStackNavigator();
 
 export const RootNav = () => {
