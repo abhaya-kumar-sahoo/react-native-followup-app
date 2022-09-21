@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-export const RegistrationStack = () => {
+export const ProjectDetails = () => {
   return (
     <View>
-      <Text>RegistrationStack</Text>
+      <Text>ProjectDetails</Text>
     </View>
   )
 }

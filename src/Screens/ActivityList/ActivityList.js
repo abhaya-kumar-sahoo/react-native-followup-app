@@ -1,15 +1,12 @@
 import {useNavigation} from '@react-navigation/native';
+import { AppColors } from 'assets/AppColors';
+import { AppHeader, Width } from 'Components/AppHeader';
+import { VerticalHeight } from 'Components/GlobalStyle';
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
-import {AppColors} from '../../assets/AppColors';
-import {AccentButton, Container} from '../../Components';
-import {AppHeader} from '../../Components/AppHeader';
-import {
-  FontSize,
-  Spacing,
-  VertSpace,
-} from '../../shared/Global.styles';
-import {HorizontalLine} from '../Journey/JourneyScreen';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
+
+
 const Activities = [
   {
     name: 'Sleeping',
@@ -128,10 +125,10 @@ export const ActivityList = ({route, navigation}) => {
 
   return (
     <View style={{flex: 1, backgroundColor: 'black'}}>
-      <VertSpace size={10} />
+      {/* <VertSpace size={10} /> */}
+      <AppHeader   />
 
       <View style={{flexDirection: 'row', paddingLeft: 20}}>
-        <AppHeader padding={-20} colorIcon={AppColors.white} enableBack />
 
         <TextInput
           placeholder="Search here ..."
@@ -142,10 +139,9 @@ export const ActivityList = ({route, navigation}) => {
         />
       </View>
 
-      <Container padding={Spacing.xxlarge}>
-        <VertSpace size={20} />
-
-        <VertSpace size={50} />
+      <View style={{paddingHorizontal:30}} >
+      {/* <Icon name="rocket" size={30} color="#900" /> */}
+        <VerticalHeight height={20} />
         <FlatList
           data={search}
           // ItemSeparatorComponent={()=>{
@@ -154,8 +150,9 @@ export const ActivityList = ({route, navigation}) => {
           //   )
           // }}
           keyExtractor={item => item.key}
-          renderItem={({item}) => (
-            <View style={{flex: 1}}>
+          ListFooterComponent={<VerticalHeight height={100} />}
+          renderItem={({item,key}) => (
+            <View style={{width:Width,height:30}} key={key} >
 
               <Text
                 style={styles.item}
@@ -164,15 +161,15 @@ export const ActivityList = ({route, navigation}) => {
                 }}>
                 {item.name}
               </Text>
-              <VertSpace size={10} />
+              {/* <VertSpace size={10} /> */}
 
-              <HorizontalLine marginLeft={10} height={0.7} backgroundColor='gray' width='50%'  alignItems='center'/>
+              {/* <HorizontalLine marginLeft={10} height={0.7} backgroundColor='gray' width='50%'  alignItems='center'/> */}
 
-              <VertSpace size={10} />
+              {/* <VertSpace size={10} /> */}
             </View>
           )}
         />
-      </Container>
+      </View>
     </View>
   );
 };
@@ -186,14 +183,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     color: 'white',
-    fontSize: FontSize.large,
+    fontSize: 18,
     width: '80%',
     marginRight: 20,
     paddingLeft: 20,
   },
   item: {
-    color: 'white',
-    fontSize: FontSize.large,
+    color: AppColors.white1,
+    fontSize: 18,
     paddingLeft:0,
   
   },

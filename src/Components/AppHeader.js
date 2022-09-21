@@ -3,6 +3,8 @@ import { AppFonts } from 'assets/fonts/AppFonts';
 import {View, Text, Dimensions} from 'react-native';
 import Ripple from 'react-native-material-ripple';
 import {GStyles} from './GlobalStyle';
+import Icon from 'react-native-vector-icons/dist/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 export const AppHeader = ({
   leftText = 'Left',
@@ -12,9 +14,13 @@ export const AppHeader = ({
   rightTextColor = AppColors.lightBlue,
   leftTextFontSize = 20,
   rightTextFontSize = 20,
-  showLeft = true,
+  showLeft = false,
   showRight = true,
+  onPressRight=()=>{},
+  onPressLeft=()=>{},
+  enableBack=false
 }) => {
+  const nav=useNavigation()
   return (
     <View
       style={[
@@ -23,15 +29,19 @@ export const AppHeader = ({
         {width: Width, padding: padding},
       ]}>
       <View>
-        {showLeft && (
-          <Text style={{color: leftTextColor, fontSize: leftTextFontSize}}>
+      {enableBack &&<Ripple onPress={()=> nav.goBack()} >
+        <Icon name="arrow-back"  size={30} color={AppColors.white} />
+      </Ripple> }
+        {showLeft && enableBack && (
+          <Text onPress={onPressLeft} style={{color: leftTextColor, fontSize: leftTextFontSize}}>
             {leftText}
           </Text>
         )}
+      
       </View>
       <View>
         {showRight && (
-          <Text style={{color: rightTextColor, fontSize: rightTextFontSize}}>
+          <Text onPress={onPressRight} style={{color: rightTextColor, fontSize: rightTextFontSize}}>
             {rightText}
           </Text>
         )}
@@ -43,11 +53,12 @@ export const AppHeader = ({
 export const Width = Dimensions.get('screen').width;
 export const Height = Dimensions.get('screen').height;
 
-export const BottomButton = ({title = 'Done', disable = true}) => {
+export const BottomButton = ({title = 'Done', disable = true,onPress}) => {
   return (
     <View style={[GStyles.PosAbsBottom, {width: Width}, GStyles.FlexRowCenter]}>
       <Ripple
         disabled={disable}
+        onPress={onPress}
         style={[GStyles.Center,{
           width: Width * 0.88,
           height: 50,
