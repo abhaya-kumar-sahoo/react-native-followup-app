@@ -1,7 +1,7 @@
 import {AppColors} from 'assets/AppColors';
-import {Platform, StyleSheet, View, Text} from 'react-native';
+import {Platform, StyleSheet, View, Text, Dimensions} from 'react-native';
 import Ripple from 'react-native-material-ripple';
-import {Width} from './AppHeader';
+// import {Width} from './AppHeader';
 
 export const GStyles = StyleSheet.create({
   Flex: {
@@ -19,7 +19,6 @@ export const GStyles = StyleSheet.create({
   FlexRowCenterAlign: {
     flexDirection: 'row',
     alignItems: 'center',
-
   },
   FlexColumn: {
     flexDirection: 'column',
@@ -57,6 +56,12 @@ export const GStyles = StyleSheet.create({
     fontSize: 35,
     fontWeight: '700',
   },
+  ImageCircleStyle: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    backgroundColor: AppColors.MediumGrey1,
+  },
 });
 
 export const VerticalHeight = ({height = 10}) => {
@@ -64,6 +69,28 @@ export const VerticalHeight = ({height = 10}) => {
 };
 export const HorizontalSpace = ({size = 10}) => {
   return <View style={{width: size}} />;
+};
+
+export const HorizontalLine = ({
+  size = 100,
+  alignSelf = 'auto',
+  height = 2,
+}) => {
+  return (
+    <View
+      style={{
+        height: height,
+      }}>
+      <View
+        style={{
+          width: size,
+          borderWidth: 0.5,
+          borderColor: AppColors.DarkGray1,
+          alignSelf: alignSelf,
+        }}
+      />
+    </View>
+  );
 };
 
 export const isIOS = Platform.OS === 'ios' ? true : false;
@@ -74,7 +101,7 @@ export const AppButton = ({
   height = 45,
   backgroundColor = AppColors.Red1,
   borderRadius = 12,
-  fontSize=18
+  fontSize = 18,
 }) => {
   return (
     <Ripple
@@ -88,7 +115,8 @@ export const AppButton = ({
           borderRadius: borderRadius,
         },
       ]}>
-      <Text style={{color: AppColors.white, fontSize: fontSize, fontWeight: '600'}}>
+      <Text
+        style={{color: AppColors.white, fontSize: fontSize, fontWeight: '600'}}>
         {text}
       </Text>
     </Ripple>

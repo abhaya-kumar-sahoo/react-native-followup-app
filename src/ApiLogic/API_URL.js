@@ -1,5 +1,5 @@
 // export
-const PROD_URL = 'https://app.memofac.in/api';
+const PROD_URL = 'https://followup-back.herokuapp.com';
 const DEV_URL = 'https://memofac.devclub.co.in/api';
 const BASE_URL = PROD_URL;
 
@@ -7,7 +7,7 @@ export const APP_APIS = {
   BASE_URL: BASE_URL,
   SEND_OTP: BASE_URL + '/send_otp',
   LOGIN: BASE_URL + '/login',
-  REGISTER: BASE_URL + '/register',
+  REGISTER: BASE_URL + '/registration',
   LOGOUT: BASE_URL + '/logout',
 
   // TIMELINE

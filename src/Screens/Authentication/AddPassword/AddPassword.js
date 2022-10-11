@@ -6,8 +6,10 @@ import {AppHeader, BottomButton, Height} from 'Components/AppHeader';
 import {useNavigation} from '@react-navigation/native';
 import {AppColors} from 'assets/AppColors';
 
-export const AddPassword = () => {
+export const AddPassword = ({route}) => {
   const [Password, setPassword] = useState('');
+  const {UserName} = route.params;
+
   const nav = useNavigation();
   return (
     <View style={GStyles.Flex}>
@@ -27,7 +29,7 @@ export const AddPassword = () => {
       />
 
       <BottomButton
-        onPress={() => nav.navigate('ReTypePassword')}
+        onPress={() => nav.navigate('ReTypePassword', {UserName, Password})}
         title="Next"
         disable={Password === '' ? true : false}
       />

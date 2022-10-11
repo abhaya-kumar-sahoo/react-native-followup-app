@@ -1,4 +1,11 @@
-import {StyleSheet, View, Text, FlatList, Image} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import {
   AppButton,
@@ -9,15 +16,19 @@ import {
 } from 'Components/GlobalStyle';
 import {AppHeader, Height, Width} from 'Components/AppHeader';
 import {AppColors} from 'assets/AppColors';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 export const ProjectList = () => {
-  const nav=useNavigation()
+  const nav = useNavigation();
   return (
     <View style={GStyles.FlexPadding}>
-      <AppHeader onPressRight={()=> nav.navigate('AddProjectName')} rightTextColor={AppColors.white1} rightText="+ New Project" />
+      <AppHeader
+        onPressRight={() => nav.navigate('AddProjectName')}
+        rightTextColor={AppColors.white1}
+        rightText="+ New Project"
+      />
       <VerticalHeight height={Height * 0.13} />
-      <Text  style={GStyles.AuthTextStyle}>Projects list</Text>
+      <Text style={GStyles.AuthTextStyle}>Projects list</Text>
       <VerticalHeight height={Height * 0.05} />
       <View style={{height: Height * 0.35}}>
         <FlatList
@@ -31,7 +42,10 @@ export const ProjectList = () => {
             </>
           }
           renderItem={({item, key}) => (
-            <View key={key} style={styles.ProjectContainer}>
+            <TouchableOpacity
+              onPress={() => nav.navigate('ProjectDetails')}
+              key={key}
+              style={styles.ProjectContainer}>
               <Text style={styles.ProjectContainerText}>Memofac_App</Text>
               <VerticalHeight height={20} />
               <View style={GStyles.FlexRow}>
@@ -56,12 +70,11 @@ export const ProjectList = () => {
                     color: AppColors.white2,
                     paddingTop: 20,
                     marginLeft: 5,
-                  }}
-                >
+                  }}>
                   ...
                 </Text>
               </View>
-            </View>
+            </TouchableOpacity>
           )}
         />
       </View>
@@ -72,8 +85,12 @@ export const ProjectList = () => {
         <Text style={styles.ProjectContainerText}>Team Motivation</Text>
         <VerticalHeight height={20} />
         <View style={GStyles.FlexRowSpcaBetw}>
-          <AppButton width={isIOS?150:130} text="Accept" backgroundColor={AppColors.green1} />
-          <AppButton width={isIOS?150:130} text="Reject" />
+          <AppButton
+            width={isIOS ? 150 : 130}
+            text="Accept"
+            backgroundColor={AppColors.green1}
+          />
+          <AppButton width={isIOS ? 150 : 130} text="Reject" />
         </View>
       </View>
     </View>

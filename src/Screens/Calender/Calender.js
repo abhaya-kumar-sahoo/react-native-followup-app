@@ -1,41 +1,37 @@
+import {AppColors} from 'assets/AppColors';
+import {AppHeader} from 'Components/AppHeader';
+import {GStyles, VerticalHeight} from 'Components/GlobalStyle';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
-import { MonthPicker } from './MonthPicker';
-
+import CalendarPicker from 'react-native-calendar-picker';
+import NextIcon from 'react-native-vector-icons/MaterialIcons';
 export const Calender = () => {
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: '#161616',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <Text style={{color: 'white'}}>Calender</Text>
-
-      {/* <Calendar
-        markingType={'period'}
-        markedDates={{
-          '2022-05-15': {marked: true, dotColor: '#50cebb'},
-          '2022-05-16': {marked: true, dotColor: '#50cebb'},
-          '2022-05-21': {
-            startingDay: true,
-            color: '#50cebb',
-            textColor: 'white',
-          },
-          '2022-05-22': {color: '#70d7c7', textColor: 'white'},
-          '2022-05-23': {
-            color: '#70d7c7',
-            textColor: 'white',
-            marked: true,
-            dotColor: 'white',
-          },
-          '2022-05-24': {color: '#70d7c7', textColor: 'white'},
-          '2022-05-25': {endingDay: true, color: '#50cebb', textColor: 'white'},
+    <View style={[GStyles.FlexPadding, GStyles.Center]}>
+      <AppHeader enableBack={true} showRight={false} />
+      <Text style={{color: AppColors.white1, fontWeight: '900', fontSize: 30}}>
+        Calender
+      </Text>
+      <VerticalHeight height={30} />
+      <CalendarPicker
+        textStyle={{
+          color: AppColors.white2,
         }}
-      /> */}
-      <MonthPicker/>
+        dayShape="square"
+        yearTitleStyle={{color: AppColors.white1}}
+        customDatesStyles={{color: 'white'}}
+        todayBackgroundColor={AppColors.green1}
+        nextComponent={
+          <NextIcon name="navigate-next" size={35} color={AppColors.white} />
+        }
+        previousComponent={
+          <NextIcon name="arrow-back-ios" size={21} color={AppColors.white} />
+        }
+        horizontal
+        // selectedDayColor={AppColors.VeryDarkGrey}
+        selectedDayColor={AppColors.green}
+        selectedDayTextColor={AppColors.white}
+      />
     </View>
   );
 };

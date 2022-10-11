@@ -16,6 +16,7 @@ export const AddUserName = () => {
         rightTextFontSize={18}
         rightTextColor={AppColors.white1}
         showLeft={false}
+        // enableBack={true}
       />
       <VerticalHeight height={Height * 0.2} />
 
@@ -27,7 +28,7 @@ export const AddUserName = () => {
       />
 
       <BottomButton
-        onPress={() => nav.navigate('AddPassword')}
+        onPress={() => nav.navigate('AddPassword', {UserName})}
         title="Next"
         disable={UserName === '' ? true : false}
       />

@@ -17,6 +17,8 @@ export const TextInputField = ({
   headerText = 'Enter Username',
   value = '',
   onChangeText = () => {},
+  placeholder = '',
+  pla,
 }) => {
   const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0;
 
@@ -28,7 +30,6 @@ export const TextInputField = ({
             <Text style={GStyles.AuthTextStyle}>{headerText}</Text>
             <VerticalHeight height={25} />
             <TextInput
-              placeholder=""
               value={value}
               onChangeText={onChangeText}
               style={{
@@ -40,6 +41,8 @@ export const TextInputField = ({
                 fontSize: 20,
                 color: AppColors.white1,
               }}
+              placeholder={placeholder}
+              placeholderTextColor={AppColors.MediumGrey1}
             />
           </KeyboardAvoidingView>
         </KeyboardAwareScrollView>
@@ -53,12 +56,12 @@ export const HeaderTextWithInputField = ({
   SubText = '',
   onChangeText = () => {},
   value = '',
-  placeholder=""
+  placeholder = '',
 }) => {
   return (
     <View style={{paddingLeft: 20, width: Width}}>
       <Text style={GStyles.AuthTextStyle}>{MainText}</Text>
-      <VerticalHeight/>
+      <VerticalHeight />
       <Text style={GStyles.AuthTextStyle}>{SubText}</Text>
       <VerticalHeight height={isIOS ? 65 : 25} />
       <TextInput
@@ -66,7 +69,7 @@ export const HeaderTextWithInputField = ({
           borderBottomColor: AppColors.MediumGrey1,
           borderBottomWidth: 1,
           color: AppColors.white1,
-          fontSize:22
+          fontSize: 22,
         }}
         value={value}
         placeholder={placeholder}

@@ -19,26 +19,22 @@ import {Calender} from 'Screens/Calender/Calender';
 
 const Stack = createNativeStackNavigator();
 
-export const LoginStack = () => {
+export const UserStack = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="LoginScreen"
-        screenOptions={{headerShown: false}}>
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="RegistrationStack" children={RegistrationStack} />
-        <Stack.Screen name="ProjectList" component={ProjectList} />
-        <Stack.Screen name="ActivityList" component={ActivityList} />
-        <Stack.Screen name="AddProjectName" component={AddProjectName} />
-        <Stack.Screen name="AddMembers" component={AddMembers} />
-        <Stack.Screen name="DailyWorkSchedule" component={DailyWorkSchedule} />
-        <Stack.Screen name="Reports" component={Reports} />
-        <Stack.Screen name="ProjectDetails" component={ProjectDetails} />
-        <Stack.Screen name="TeamMembers" component={TeamMembers} />
-        <Stack.Screen name="RequestMembers" component={RequestMembers} />
-        <Stack.Screen name="MonthReport" component={MonthReport} />
-        <Stack.Screen name="Calender" component={Calender} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator
+      initialRouteName="ProjectList"
+      screenOptions={{headerShown: false}}>
+      <Stack.Screen name="ProjectList" component={ProjectList} />
+      <Stack.Screen name="ActivityList" component={ActivityList} />
+      <Stack.Screen name="AddProjectName" component={AddProjectName} />
+      <Stack.Screen name="AddMembers" component={AddMembers} />
+      <Stack.Screen name="DailyWorkSchedule" component={DailyWorkSchedule} />
+      <Stack.Screen name="Reports" component={Reports} />
+      <Stack.Screen name="ProjectDetails" component={ProjectDetails} />
+      <Stack.Screen name="TeamMembers" component={TeamMembers} />
+      <Stack.Screen name="RequestMembers" component={RequestMembers} />
+      <Stack.Screen name="MonthReport" component={MonthReport} />
+      <Stack.Screen name="Calender" component={Calender} />
+    </Stack.Navigator>
   );
 };
