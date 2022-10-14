@@ -1,4 +1,4 @@
-import {SafeAreaView, StyleSheet, View} from 'react-native';
+import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
 import React, {useState} from 'react';
 import {GStyles, VerticalHeight} from 'Components/GlobalStyle';
 import {AppHeader, BottomButton, Height} from 'Components/AppHeader';
@@ -14,30 +14,45 @@ import {
   RestoreToken,
   saveProgress,
 } from 'Redux/reducers/Authentication/AuthReducer';
-
+import {Loader} from 'Components/Loader';
+import {AppColors} from 'assets/AppColors';
+import Icon from 'react-native-vector-icons/Ionicons';
 export const LoginScreen = () => {
   const [UserName, setUserName] = useState('');
   const [Password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [ErrorText, setErrorText] = useState('');
+
   const nav = useNavigation();
   const dispatch = useDispatch();
   const {proceedStatus, token, UserData} = useSelector(state => state.UserAuth);
 
   const Login = () => {
+    setLoading(true);
+    setErrorText('');
+
     const data = {
       name: UserName,
       password: Password,
     };
     request({url: APP_APIS.LOGIN, body: JSON.stringify(data)})
       .then(async res => {
-        if (res) {
+        setLoading(false);
+
+        if (!res.error) {
           await AsyncStorage.setItem('token', res.token);
+          await AsyncStorage.setItem('proceedStatus', 'into');
+
           dispatch(saveProgress({proceedStatus: 'into'}));
           dispatch(getUserDetails(res.data));
           dispatch(RestoreToken(res.token));
+        } else {
+          setErrorText(res.msg);
         }
       })
       .catch(e => {
         console.log(e);
+        setLoading(false);
       });
 
     // nav.navigate('ProjectList')
@@ -47,8 +62,13 @@ export const LoginScreen = () => {
     <SafeAreaView style={[GStyles.Flex, GStyles.Center]}>
       <AppHeader
         showLeft={false}
-        onPressRight={() => dispatch(saveProgress({proceedStatus: 'register'}))}
+        onPressRight={() => {
+          dispatch(saveProgress({proceedStatus: 'register'})),
+            AsyncStorage.setItem('proceedStatus', 'register');
+        }}
       />
+
+      <Loader visible={loading} />
 
       <View style={{marginBottom: Height * 0.2}}>
         <TextInputField value={UserName} onChangeText={e => setUserName(e)} />
@@ -58,14 +78,29 @@ export const LoginScreen = () => {
           onChangeText={e => setPassword(e)}
           headerText="Enter Password"
         />
-        {/* <CalenderViewIcon size={30} color={AppColors.Red} /> */}
       </View>
+
+      {ErrorText.length === 0 ? (
+        <></>
+      ) : (
+        <View style={GStyles.FlexRowCenter}>
+          <Icon name="warning-outline" size={15} color={AppColors.Red} />
+          <Text style={styles.ErrorText}>{ErrorText}</Text>
+        </View>
+      )}
       <BottomButton
         onPress={Login}
-        disable={UserName === '' || Password === '' ? true : false}
+        disable={Password.length < 6 || UserName.length < 3 ? true : false}
       />
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  ErrorText: {
+    color: AppColors.Red,
+    alignSelf: 'center',
+    textAlign: 'center',
+    paddingLeft: 10,
+  },
+});

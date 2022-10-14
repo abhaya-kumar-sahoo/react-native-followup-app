@@ -1,12 +1,15 @@
 import {StyleSheet, Text, View, FlatList, Image} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {AppButton, GStyles, VerticalHeight} from 'Components/GlobalStyle';
 import {AppHeader, BottomButton, Height, Width} from 'Components/AppHeader';
 import {AppColors} from 'assets/AppColors';
 import {useNavigation} from '@react-navigation/native';
+import {request} from 'ApiLogic/ApiCall';
+import {APP_APIS} from 'ApiLogic/API_URL';
 
 export const TeamMembers = () => {
   const {navigate} = useNavigation();
+
   return (
     <View style={GStyles.FlexPadding}>
       <AppHeader enableBack={true} showRight={false} />

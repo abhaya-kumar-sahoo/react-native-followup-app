@@ -18,6 +18,7 @@ export const AddPassword = ({route}) => {
         rightTextFontSize={18}
         rightTextColor={AppColors.white1}
         showLeft={false}
+        enableBack={true}
       />
       <VerticalHeight height={Height * 0.2} />
 
@@ -31,7 +32,7 @@ export const AddPassword = ({route}) => {
       <BottomButton
         onPress={() => nav.navigate('ReTypePassword', {UserName, Password})}
         title="Next"
-        disable={Password === '' ? true : false}
+        disable={Password.length < 6 ? true : false}
       />
     </View>
   );

@@ -9,14 +9,15 @@ import {
 import {AppHeader, Height, Width} from 'Components/AppHeader';
 
 import {AppColors} from 'assets/AppColors';
+
+import Ripple from 'react-native-material-ripple';
+import {useNavigation} from '@react-navigation/native';
 import {
   BackArrowIcon,
   CalenderIcon,
   CalenderView,
   ChatIcon,
 } from 'shared/Icon.Comp';
-import Ripple from 'react-native-material-ripple';
-import {useNavigation} from '@react-navigation/native';
 
 const DailyWorkSchedule = () => {
   const nav = useNavigation();
@@ -24,7 +25,9 @@ const DailyWorkSchedule = () => {
     <View style={GStyles.FlexPadding}>
       <VerticalHeight height={20} />
       <View style={GStyles.FlexRowSpcaBetw}>
-        <BackArrowIcon />
+        <Text onPress={() => nav.goBack()}>
+          <BackArrowIcon />
+        </Text>
         <View style={GStyles.FlexRow}>
           <Ripple onPress={() => nav.navigate('Calender')}>
             <CalenderIcon size={30} />

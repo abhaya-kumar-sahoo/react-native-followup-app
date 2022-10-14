@@ -12,26 +12,48 @@ import {
   saveProgress,
 } from 'Redux/reducers/Authentication/AuthReducer';
 import {useDispatch} from 'react-redux';
+import {Loader} from 'Components/Loader';
+import Icon from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const ReTypePassword = ({route}) => {
   const [CPassword, setCPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [ErrorText, setErrorText] = useState('');
+
   const {UserName, Password} = route.params;
   const dispatch = useDispatch();
   const Registration = async () => {
-    if (Password === CPassword) {
-      const data = {
-        name: UserName,
-        password: Password,
-        cPassword: CPassword,
-      };
+    setLoading(true);
+    setErrorText('');
 
-      request({url: APP_APIS.REGISTER, body: JSON.stringify(data)})
-        .then(result => {
-          dispatch(saveProgress({proceedStatus: 'login'}));
-        })
-        .catch(e => {
-          console.log('err', e);
-        });
+    try {
+      if (Password === CPassword) {
+        const data = {
+          name: UserName,
+          password: Password,
+          cPassword: CPassword,
+        };
+
+        request({url: APP_APIS.REGISTER, body: JSON.stringify(data)})
+          .then(result => {
+            setLoading(false);
+
+            if (result.error) {
+              setErrorText(res.msg);
+            } else {
+              AsyncStorage.setItem('proceedStatus', 'login');
+              dispatch(saveProgress({proceedStatus: 'login'}));
+            }
+          })
+          .catch(e => {
+            console.log('err', e);
+            setLoading(false);
+          });
+      }
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
     }
   };
 
@@ -43,8 +65,10 @@ export const ReTypePassword = ({route}) => {
         rightTextFontSize={18}
         rightTextColor={AppColors.white1}
         showLeft={false}
+        enableBack={true}
       />
       <VerticalHeight height={Height * 0.18} />
+      <Loader visible={loading} />
 
       <HeaderTextWithInputField
         value={CPassword}
@@ -52,12 +76,27 @@ export const ReTypePassword = ({route}) => {
         MainText="Re-type"
         SubText="Password"
       />
-
+      {ErrorText.length === 0 ? (
+        <></>
+      ) : (
+        <View style={GStyles.FlexRowCenter}>
+          <Icon name="warning-outline" size={15} color={AppColors.Red} />
+          <Text style={styles.ErrorText}>{ErrorText}</Text>
+        </View>
+      )}
       <BottomButton
         onPress={Registration}
         title="Next"
-        disable={CPassword === '' ? true : false}
+        disable={CPassword.length < 6 ? true : false}
       />
     </View>
   );
 };
+const styles = StyleSheet.create({
+  ErrorText: {
+    color: AppColors.Red,
+    alignSelf: 'center',
+    textAlign: 'center',
+    paddingLeft: 10,
+  },
+});

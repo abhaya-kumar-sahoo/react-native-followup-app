@@ -4,11 +4,11 @@ import {GStyles, VerticalHeight} from 'Components/GlobalStyle';
 import {AppHeader, BottomButton, Height} from 'Components/AppHeader';
 import {HeaderTextWithInputField} from 'Screens/Authentication/components';
 import {AppColors} from 'assets/AppColors';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 export const AddProjectName = () => {
   const [Name, setName] = useState('');
-const nav=useNavigation()
+  const nav = useNavigation();
   return (
     <View style={GStyles.Flex}>
       <AppHeader
@@ -25,7 +25,11 @@ const nav=useNavigation()
         SubText="Project name"
       />
 
-      <BottomButton onPress={()=> nav.navigate('AddMembers')} disable={Name === '' ? true : false} title="Next" />
+      <BottomButton
+        onPress={() => nav.navigate('AddMembers', {name: Name})}
+        disable={Name === '' ? true : false}
+        title="Next"
+      />
     </View>
   );
 };

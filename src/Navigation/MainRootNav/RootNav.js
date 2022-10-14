@@ -6,7 +6,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {RegistrationStack} from 'Navigation/RegistrationStack/RegistrationStack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {LoginScreen} from 'Screens/Authentication/Login/LoginScreen';
-import {RestoreToken} from 'Redux/reducers/Authentication/AuthReducer';
+import {
+  RestoreToken,
+  saveProgress,
+} from 'Redux/reducers/Authentication/AuthReducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {UserStack} from 'Navigation/UserStack/UserStack';
 import {SplashScreen} from 'Navigation/SplashScreen/SplashScreen';
@@ -21,6 +24,13 @@ export const RootNav = () => {
     AsyncStorage.getItem('token')
       .then(res => {
         dispatch(RestoreToken(res));
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    AsyncStorage.getItem('proceedStatus')
+      .then(res => {
+        dispatch(saveProgress(res));
       })
       .catch(err => {
         console.log(err);

@@ -5,10 +5,28 @@ import {GStyles, VerticalHeight} from 'Components/GlobalStyle';
 import {AppHeader, BottomButton, Height} from 'Components/AppHeader';
 import {useNavigation} from '@react-navigation/native';
 import {AppColors} from 'assets/AppColors';
-
+import {request} from 'ApiLogic/ApiCall';
+import {APP_APIS} from 'ApiLogic/API_URL';
+import DelayInput from 'react-native-debounce-input';
 export const AddUserName = () => {
   const [UserName, setUserName] = useState('');
+  const [response, setResponse] = useState('');
+
   const nav = useNavigation();
+
+  const CheckUserExist = text => {
+    request({
+      url: APP_APIS.CHECK_USERNAME,
+      body: JSON.stringify({name: text}),
+    })
+      .then(res => {
+        setResponse(res.msg);
+      })
+      .catch(err => {
+        setResponse('');
+      });
+  };
+
   return (
     <View style={GStyles.Flex}>
       <AppHeader
@@ -22,9 +40,16 @@ export const AddUserName = () => {
 
       <HeaderTextWithInputField
         value={UserName}
-        onChangeText={e => setUserName(e)}
+        // delay={1000}
+        onChangeText={e => {
+          setUserName(e), CheckUserExist(e);
+        }}
         MainText="Add"
         SubText="Username"
+        ErrorColor={
+          response === 'Username available' ? AppColors.green : AppColors.Red1
+        }
+        text={UserName === '' ? '' : response}
       />
 
       <BottomButton

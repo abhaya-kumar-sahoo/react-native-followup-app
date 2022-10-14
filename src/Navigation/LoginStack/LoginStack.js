@@ -6,7 +6,6 @@ import {LoginScreen} from 'Screens/Authentication/Login/LoginScreen';
 import {RegistrationStack} from 'Navigation/RegistrationStack/RegistrationStack';
 import {AddUserName} from 'Screens/Authentication/AddUserName/AddUserName';
 import {ProjectList} from 'Screens/Projects/ProjectList';
-import {ActivityList} from 'Screens/ActivityList/ActivityList';
 import {ProjectDetails} from 'Screens/Projects/ProjectDetails';
 import {AddProjectName} from 'Screens/NewProject/AddProjectName';
 import {AddMembers} from 'Screens/NewProject/AddMembers';
@@ -28,7 +27,6 @@ export const LoginStack = () => {
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="RegistrationStack" children={RegistrationStack} />
         <Stack.Screen name="ProjectList" component={ProjectList} />
-        <Stack.Screen name="ActivityList" component={ActivityList} />
         <Stack.Screen name="AddProjectName" component={AddProjectName} />
         <Stack.Screen name="AddMembers" component={AddMembers} />
         <Stack.Screen name="DailyWorkSchedule" component={DailyWorkSchedule} />

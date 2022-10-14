@@ -11,7 +11,10 @@ import {
   Platform,
   SafeAreaView,
 } from 'react-native';
+import DelayInput from 'react-native-debounce-input';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import Icon from 'react-native-vector-icons/Ionicons';
+import MIcon from 'react-native-vector-icons/MaterialIcons';
 
 export const TextInputField = ({
   headerText = 'Enter Username',
@@ -57,6 +60,9 @@ export const HeaderTextWithInputField = ({
   onChangeText = () => {},
   value = '',
   placeholder = '',
+  delay = 500,
+  ErrorColor = AppColors.Red1,
+  text = '',
 }) => {
   return (
     <View style={{paddingLeft: 20, width: Width}}>
@@ -64,7 +70,8 @@ export const HeaderTextWithInputField = ({
       <VerticalHeight />
       <Text style={GStyles.AuthTextStyle}>{SubText}</Text>
       <VerticalHeight height={isIOS ? 65 : 25} />
-      <TextInput
+      <DelayInput
+        delayTimeout={delay}
         style={{
           borderBottomColor: AppColors.MediumGrey1,
           borderBottomWidth: 1,
@@ -76,6 +83,33 @@ export const HeaderTextWithInputField = ({
         placeholderTextColor={AppColors.MediumGrey1}
         onChangeText={onChangeText}
       />
+      <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
+        {text === '' ? (
+          <></>
+        ) : (
+          <>
+            {text === 'Username available' ? (
+              <Icon
+                size={12}
+                name="checkmark-done-circle"
+                color={AppColors.green1}
+              />
+            ) : (
+              <MIcon size={12} name="cancel" color={AppColors.Red} />
+            )}
+          </>
+        )}
+
+        <Text
+          style={{
+            color: ErrorColor,
+            alignSelf: 'center',
+            fontWeight: '500',
+            paddingLeft: 5,
+          }}>
+          {text}
+        </Text>
+      </View>
     </View>
   );
 };

@@ -1,5 +1,14 @@
 import {RootReducer} from 'Redux/RootReducer/RootReducer';
+import createSagaMiddleware from 'redux-saga';
+import {watcherSaga} from 'Redux/sagas/rootSagas';
 
-const {createStore} = require('redux');
+const {createStore, applyMiddleware} = require('redux');
 
-export const store = createStore(RootReducer);
+const sagaMiddleWare = createSagaMiddleware();
+const middleWare = [sagaMiddleWare];
+
+const store = createStore(RootReducer, applyMiddleware(...middleWare));
+
+sagaMiddleWare.run(watcherSaga);
+
+export {store};

@@ -6,7 +6,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   AppButton,
   GStyles,
@@ -17,9 +17,27 @@ import {
 import {AppHeader, Height, Width} from 'Components/AppHeader';
 import {AppColors} from 'assets/AppColors';
 import {useNavigation} from '@react-navigation/native';
+import {Loader} from 'Components/Loader';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+  RestoreToken,
+  saveProgress,
+} from 'Redux/reducers/Authentication/AuthReducer';
+import {getAllProjects} from 'Redux/reducers/Projects/ProjectsReducer';
 
 export const ProjectList = () => {
   const nav = useNavigation();
+  const dispatch = useDispatch();
+  const {token} = useSelector(state => state.UserAuth);
+  const {posts, loading} = useSelector(state => state.ProjectReducer);
+
+  useEffect(() => {
+    dispatch(getAllProjects({data: token}));
+
+    // console.log(token);
+  }, []);
+
   return (
     <View style={GStyles.FlexPadding}>
       <AppHeader
@@ -28,25 +46,37 @@ export const ProjectList = () => {
         rightText="+ New Project"
       />
       <VerticalHeight height={Height * 0.13} />
-      <Text style={GStyles.AuthTextStyle}>Projects list</Text>
+      <Text
+        onPress={() => {
+          AsyncStorage.clear(),
+            dispatch(
+              RestoreToken(null),
+              dispatch(saveProgress({proceedStatus: 'login'})),
+            );
+        }}
+        style={GStyles.AuthTextStyle}>
+        Projects list
+      </Text>
       <VerticalHeight height={Height * 0.05} />
       <View style={{height: Height * 0.35}}>
         <FlatList
-          data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]}
+          data={posts}
           ListHeaderComponent={<></>}
-          keyExtractor={(i, k) => i}
+          keyExtractor={(i, index) => index}
           ItemSeparatorComponent={<VerticalHeight height={30} />}
           ListFooterComponent={
             <>
               <VerticalHeight height={Height * 0.2} />
             </>
           }
-          renderItem={({item, key}) => (
+          renderItem={({item, index}) => (
             <TouchableOpacity
-              onPress={() => nav.navigate('ProjectDetails')}
-              key={key}
+              onPress={() => nav.navigate('ProjectDetails', {data: item})}
+              key={index}
               style={styles.ProjectContainer}>
-              <Text style={styles.ProjectContainerText}>Memofac_App</Text>
+              <Text style={styles.ProjectContainerText}>
+                {item.project_name}
+              </Text>
               <VerticalHeight height={20} />
               <View style={GStyles.FlexRow}>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].slice(0, 5).map((i, k) => {
