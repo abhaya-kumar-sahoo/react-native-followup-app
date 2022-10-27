@@ -61,6 +61,9 @@ export const GStyles = StyleSheet.create({
     height: 50,
     borderRadius: 50,
     backgroundColor: AppColors.MediumGrey1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

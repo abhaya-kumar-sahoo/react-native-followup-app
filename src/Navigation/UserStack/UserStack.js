@@ -11,10 +11,12 @@ import {AddProjectName} from 'Screens/NewProject/AddProjectName';
 import {AddMembers} from 'Screens/NewProject/AddMembers';
 import DailyWorkSchedule from 'Screens/DailyWorkSchedule/DailyWorkSchedule';
 import {Reports} from 'Screens/Reports/Reports';
-import {TeamMembers} from 'Screens/TeamMembers/TeamMembers';
-import {RequestMembers} from 'Screens/TeamMembers/RequestMembers';
+import {TeamMembers} from 'Screens/ProjectMembers/ProjectMembers';
+import {RequestMembers} from 'Screens/ProjectMembers/RequestMembers';
 import {MonthReport} from 'Screens/Reports/MonthReport';
 import {Calender} from 'Screens/Calender/Calender';
+import {PostDetails} from 'Screens/DailyWorkSchedule/PostDetails';
+import {AddNotes} from 'Screens/DailyWorkSchedule/AddNotes';
 
 const Stack = createNativeStackNavigator();
 
@@ -31,8 +33,11 @@ export const UserStack = () => {
       <Stack.Screen name="ProjectDetails" component={ProjectDetails} />
       <Stack.Screen name="TeamMembers" component={TeamMembers} />
       <Stack.Screen name="RequestMembers" component={RequestMembers} />
+
       <Stack.Screen name="MonthReport" component={MonthReport} />
       <Stack.Screen name="Calender" component={Calender} />
+      <Stack.Screen name="PostDetails" component={PostDetails} />
+      <Stack.Screen name="AddNotes" component={AddNotes} />
     </Stack.Navigator>
   );
 };

@@ -23,6 +23,8 @@ export const ReTypePassword = ({route}) => {
 
   const {UserName, Password} = route.params;
   const dispatch = useDispatch();
+  const nav = useNavigation();
+
   const Registration = async () => {
     setLoading(true);
     setErrorText('');
@@ -42,8 +44,9 @@ export const ReTypePassword = ({route}) => {
             if (result.error) {
               setErrorText(res.msg);
             } else {
-              AsyncStorage.setItem('proceedStatus', 'login');
-              dispatch(saveProgress({proceedStatus: 'login'}));
+              // AsyncStorage.setItem('proceedStatus', 'login');
+              // dispatch(saveProgress({proceedStatus: 'login'}));
+              nav.navigate('LoginScreen');
             }
           })
           .catch(e => {
@@ -57,7 +60,6 @@ export const ReTypePassword = ({route}) => {
     }
   };
 
-  const nav = useNavigation();
   return (
     <View style={GStyles.Flex}>
       <AppHeader

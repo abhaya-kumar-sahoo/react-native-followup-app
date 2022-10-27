@@ -37,7 +37,7 @@ export const TextInputField = ({
               onChangeText={onChangeText}
               style={{
                 width: Width * 0.8,
-                height: 40,
+                height: 45,
                 backgroundColor: AppColors.DarkGray1,
                 borderRadius: 10,
                 paddingLeft: 10,
@@ -63,6 +63,7 @@ export const HeaderTextWithInputField = ({
   delay = 500,
   ErrorColor = AppColors.Red1,
   text = '',
+  minLength = 3,
 }) => {
   return (
     <View style={{paddingLeft: 20, width: Width}}>
@@ -72,6 +73,7 @@ export const HeaderTextWithInputField = ({
       <VerticalHeight height={isIOS ? 65 : 25} />
       <DelayInput
         delayTimeout={delay}
+        minLength={minLength}
         style={{
           borderBottomColor: AppColors.MediumGrey1,
           borderBottomWidth: 1,

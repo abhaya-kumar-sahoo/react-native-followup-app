@@ -62,7 +62,17 @@ export const Height = Dimensions.get('screen').height;
 
 export const BottomButton = ({title = 'Done', disable = true, onPress}) => {
   return (
-    <View style={[GStyles.PosAbsBottom, {width: Width}, GStyles.FlexRowCenter]}>
+    <View
+      style={[
+        GStyles.PosAbsBottom,
+        {
+          width: Width,
+          backgroundColor: AppColors.DarkBG,
+          bottom: 0,
+          height: 100,
+        },
+        GStyles.FlexRowCenter,
+      ]}>
       <Ripple
         disabled={disable}
         onPress={onPress}

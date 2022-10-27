@@ -13,6 +13,7 @@ import {
   getUserDetails,
   RestoreToken,
   saveProgress,
+  setUserDetails,
 } from 'Redux/reducers/Authentication/AuthReducer';
 import {Loader} from 'Components/Loader';
 import {AppColors} from 'assets/AppColors';
@@ -38,13 +39,12 @@ export const LoginScreen = () => {
     request({url: APP_APIS.LOGIN, body: JSON.stringify(data)})
       .then(async res => {
         setLoading(false);
-
         if (!res.error) {
           await AsyncStorage.setItem('token', res.token);
           await AsyncStorage.setItem('proceedStatus', 'into');
 
           dispatch(saveProgress({proceedStatus: 'into'}));
-          dispatch(getUserDetails(res.data));
+          dispatch(setUserDetails({data: res.data}));
           dispatch(RestoreToken(res.token));
         } else {
           setErrorText(res.msg);
@@ -63,8 +63,9 @@ export const LoginScreen = () => {
       <AppHeader
         showLeft={false}
         onPressRight={() => {
-          dispatch(saveProgress({proceedStatus: 'register'})),
-            AsyncStorage.setItem('proceedStatus', 'register');
+          // dispatch(saveProgress({proceedStatus: 'register'})),
+          //   AsyncStorage.setItem('proceedStatus', 'register');
+          nav.navigate('AddUserName');
         }}
       />
 

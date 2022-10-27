@@ -31,7 +31,7 @@ const initialState = {
 export const ProjectReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PROJECT:
-      return {...state};
+      return {...state, loading: true};
 
     case SET_PROJECT:
       return {...state, loading: false, posts: action.data};

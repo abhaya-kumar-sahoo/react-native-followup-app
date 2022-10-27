@@ -1,6 +1,5 @@
 // export
 const PROD_URL = 'https://followup-back.herokuapp.com';
-const DEV_URL = 'https://memofac.devclub.co.in/api';
 const BASE_URL = PROD_URL;
 
 export const APP_APIS = {
@@ -9,13 +8,23 @@ export const APP_APIS = {
   LOGIN: BASE_URL + '/login',
   REGISTER: BASE_URL + '/registration',
   CHECK_USERNAME: BASE_URL + '/user_exist',
-
+  GET_USER_DETAILS: BASE_URL + '/get_user',
   LOGOUT: BASE_URL + '/logout',
 
   // TIMELINE
   ALL_USERS: BASE_URL + '/all_users',
   ADD_PROJECT: BASE_URL + '/add_project',
   ALL_PROJECTS: BASE_URL + '/my_projects',
+  GET_PROJECT_MEMBERS: BASE_URL + '/project_members',
+  ALL_MEMBERS: BASE_URL + '/all_members',
+  ADD_MEMBERS: BASE_URL + '/add_member',
+  PROJECT_REQUESTS: BASE_URL + '/requests',
+  REQUEST_ACCEPT: BASE_URL + '/accept',
+  GET_POSTS: BASE_URL + '/get_posts',
+  ADD_POSTS: BASE_URL + '/add_posts',
+  PROJECT_DATES: BASE_URL + '/project_dates',
+  UPDATE_COMMENTS: BASE_URL + '/update_comments',
+  COMMENTS_BY_MONTH: BASE_URL + '/comments_by_date',
 };
 export const API_TYPE = {
   POST: 'POST',

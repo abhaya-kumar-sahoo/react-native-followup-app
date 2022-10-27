@@ -1,56 +1,48 @@
-import {FlatList, StyleSheet, Text, View, Image} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  FlatList,
+  Image,
+  SafeAreaView,
+} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {AppHeader, BottomButton, Height, Width} from 'Components/AppHeader';
 import {
   AppButton,
   GStyles,
   HorizontalSpace,
   VerticalHeight,
 } from 'Components/GlobalStyle';
-import {HeaderTextWithInputField} from 'Screens/Authentication/components';
-import {useNavigation} from '@react-navigation/native';
+import {BottomButton, Height, Width} from 'Components/AppHeader';
+import {TextInputField} from 'Screens/Authentication/components';
 import {AppColors} from 'assets/AppColors';
-import {request} from 'ApiLogic/ApiCall';
+import {AddMembersApi, request} from 'ApiLogic/ApiCall';
 import {APP_APIS} from 'ApiLogic/API_URL';
+import {getAllUser} from 'Redux/reducers/GetAllUserReducer/GetAllUser';
 import {useDispatch, useSelector} from 'react-redux';
-import {AddProjectApiCall} from 'Redux/sagas/Projects/request';
-import {AddProjects} from 'Redux/reducers/Projects/ProjectsReducer';
 import {Loader} from 'Components/Loader';
+import {useNavigation} from '@react-navigation/native';
 import {UserListSkeleton} from 'shared/Skeletons';
-
-export const AddMembers = ({route}) => {
-  const [Name, setName] = useState('');
-  const [Users, setUsers] = useState([]);
-  const [isSelected, setIsSelected] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [UserLoading, setUserLoading] = useState(true);
-
+export const RequestMembers = ({route}) => {
+  const [Search, setSearch] = useState('');
+  const {token} = useSelector(state => state.UserAuth);
+  const {users, loading} = useSelector(state => state.GetAllUserReducer);
   const [SelectedUser, setSelectedUser] = useState([]);
 
-  const {token, UserData} = useSelector(state => state.UserAuth);
+  const [Users, setUsers] = useState([]);
+
+  const [Request, setRequest] = useState(null);
+  const [Loading, setLoading] = useState(false);
   const nav = useNavigation();
+
   const dispatch = useDispatch();
-
-  const CallUsers = () => {
-    setUserLoading(true);
-
-    request({
-      url: APP_APIS.ALL_USERS,
-      body: JSON.stringify({token, text: Name}),
-    })
-      .then(res => {
-        setUsers(res.data);
-        setUserLoading(false);
-      })
-      .catch(err => {
-        console.log(err);
-        setUserLoading(false);
-      });
-  };
-
   useEffect(() => {
-    CallUsers();
-  }, [Name]);
+    dispatch(getAllUser(token, route.params.existingUsers, Search));
+  }, [Search]);
+  useEffect(() => {
+    setUsers(users);
+  }, [users.length]);
 
   const newList = [...SelectedUser];
 
@@ -78,66 +70,67 @@ export const AddMembers = ({route}) => {
     }
   };
 
-  const CreateProject = async () => {
+  const AddMembers = async () => {
     setLoading(true);
 
     const SelectedUsers = await SelectedUser.map(i => {
       return {user: i};
     });
 
-    const data = {
-      project_name: route.params.name,
-      token,
-      users: SelectedUsers,
-    };
-    AddProjectApiCall(data)
-      .then(res => {
-        setLoading(false);
-        dispatch(AddProjects({data: res.data}));
-        nav.navigate('ProjectList');
-      })
-      .catch(err => {
-        console.log(err);
-        setLoading(false);
-      });
+    if (SelectedUsers.length > 0) {
+      const data = {
+        projectId: route.params.id,
+        token,
+        users: SelectedUsers,
+      };
+
+      AddMembersApi(data)
+        .then(res => {
+          setLoading(false);
+          // dispatch(AddProjects({data: res.data}));
+          nav.navigate('ProjectList');
+        })
+        .catch(err => {
+          console.log(err);
+          setLoading(false);
+        });
+    }
   };
 
   return (
-    <View style={GStyles.Flex}>
-      <AppHeader
-        enableBack={true}
-        rightText="2/2"
-        rightTextColor={AppColors.white}
-        rightTextFontSize={18}
-      />
-      <VerticalHeight height={Height * 0.15} />
-      <Loader text="Posting .." visible={loading} />
-      <HeaderTextWithInputField
-        value={Name}
-        minLength={1}
-        onChangeText={e => setName(e)}
-        MainText="Add"
-        SubText="Members"
-        placeholder="Search users"
-      />
+    <SafeAreaView style={GStyles.FlexPadding}>
       <VerticalHeight height={40} />
-      <View style={{height: Height * 0.4}}>
+      <TextInput
+        style={styles.textInput}
+        value={Search}
+        placeholder="Search users"
+        placeholderTextColor={AppColors.MediumGrey1}
+        onChangeText={e => setSearch(e)}
+      />
+      <VerticalHeight height={Height * 0.04} />
+
+      <Loader text="Adding members" visible={Loading} />
+
+      <View style={{height: Height * 0.7}}>
         <FlatList
           data={Users}
-          refreshing={UserLoading}
+          refreshing={loading}
           onRefresh={() => {
-            CallUsers();
+            dispatch(getAllUser(token, route.params.existingUsers));
           }}
           ItemSeparatorComponent={<VerticalHeight height={20} />}
-          ListHeaderComponent={<>{UserLoading && <UserListSkeleton />}</>}
           ListFooterComponent={<VerticalHeight height={100} />}
+          ListHeaderComponent={<>{loading && <UserListSkeleton />}</>}
+          showsVerticalScrollIndicator={false}
+          ListEmptyComponent={
+            <>
+              <Text style={{color: 'gray', alignSelf: 'center', marginTop: 40}}>
+                No data available
+              </Text>
+            </>
+          }
           renderItem={({item, index}) => (
-            <View
-              key={index}
-              style={[
-                GStyles.FlexRowSpcaBetw,
-                {width: Width, paddingHorizontal: 20},
-              ]}>
+            <View key={index} style={[GStyles.FlexRowSpcaBetw]}>
               <View style={GStyles.FlexRowCenterAlign}>
                 <View style={GStyles.ImageCircleStyle}>
                   <Text style={{color: AppColors.green, fontSize: 20}}>
@@ -169,17 +162,24 @@ export const AddMembers = ({route}) => {
           )}
         />
       </View>
-
-      <BottomButton
-        onPress={() => CreateProject()}
-        disable={false}
-        title="Done"
-      />
-    </View>
+      <BottomButton onPress={AddMembers} disable={false} title="Done" />
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  imageStyle: {
+    width: 50,
+    height: 50,
+    borderRadius: 50,
+    backgroundColor: AppColors.MediumGrey1,
+  },
+  textInput: {
+    borderBottomColor: AppColors.DarkGray1,
+    borderBottomWidth: 1,
+    color: AppColors.white1,
+    fontSize: 22,
+  },
   Requested: {
     color: AppColors.MediumGrey1,
     fontSize: 16,

@@ -11,8 +11,8 @@ import {AddProjectName} from 'Screens/NewProject/AddProjectName';
 import {AddMembers} from 'Screens/NewProject/AddMembers';
 import DailyWorkSchedule from 'Screens/DailyWorkSchedule/DailyWorkSchedule';
 import {Reports} from 'Screens/Reports/Reports';
-import {TeamMembers} from 'Screens/TeamMembers/TeamMembers';
-import {RequestMembers} from 'Screens/TeamMembers/RequestMembers';
+import {TeamMembers} from 'Screens/ProjectMembers/ProjectMembers';
+import {RequestMembers} from 'Screens/ProjectMembers/RequestMembers';
 import {MonthReport} from 'Screens/Reports/MonthReport';
 import {Calender} from 'Screens/Calender/Calender';
 

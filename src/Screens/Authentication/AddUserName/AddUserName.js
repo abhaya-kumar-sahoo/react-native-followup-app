@@ -17,7 +17,7 @@ export const AddUserName = () => {
   const CheckUserExist = text => {
     request({
       url: APP_APIS.CHECK_USERNAME,
-      body: JSON.stringify({name: text}),
+      body: JSON.stringify({name: text.replace(' ', '')}),
     })
       .then(res => {
         setResponse(res.msg);
@@ -42,7 +42,7 @@ export const AddUserName = () => {
         value={UserName}
         // delay={1000}
         onChangeText={e => {
-          setUserName(e), CheckUserExist(e);
+          setUserName(e.replace(' ', '')), CheckUserExist(e.replace(' ', ''));
         }}
         MainText="Add"
         SubText="Username"
@@ -60,5 +60,3 @@ export const AddUserName = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({});

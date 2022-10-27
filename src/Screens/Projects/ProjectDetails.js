@@ -11,24 +11,27 @@ export const ProjectDetails = ({route}) => {
   const nav = useNavigation();
   return (
     <SafeAreaView style={GStyles.FlexPadding}>
+      <VerticalHeight height={15} />
       <Text onPress={() => nav.goBack()}>
         <BackArrowIcon />
       </Text>
-      <VerticalHeight height={Height * 0.15} />
-      <Text style={GStyles.AuthTextStyle}>Memofac_App</Text>
+      <VerticalHeight height={Height * 0.1} />
+      <Text style={GStyles.AuthTextStyle}>{data.project_name} </Text>
       <VerticalHeight height={Height * 0.05} />
       <Text
-        onPress={() => nav.navigate('TeamMembers')}
+        onPress={() => nav.navigate('TeamMembers', {id: data._id})}
         style={styles.textStyle}>
         Team members
       </Text>
       <HorizontalLine size={Width * 0.85} />
-      <Text onPress={() => nav.navigate('Reports')} style={styles.textStyle}>
+      <Text
+        onPress={() => nav.navigate('Reports', {id: data._id})}
+        style={styles.textStyle}>
         Reports
       </Text>
       <HorizontalLine size={Width * 0.85} />
       <Text
-        onPress={() => nav.navigate('DailyWorkSchedule')}
+        onPress={() => nav.navigate('DailyWorkSchedule', {id: data._id})}
         style={styles.textStyle}>
         Daily work schedule
       </Text>
