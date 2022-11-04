@@ -8,6 +8,7 @@ import {request, GetProjectMembers} from 'ApiLogic/ApiCall';
 import {APP_APIS} from 'ApiLogic/API_URL';
 import {useSelector} from 'react-redux';
 import {UserListSkeleton} from 'shared/Skeletons';
+import {ImgUrls} from 'assets/Image/ImgSrc';
 
 export const TeamMembers = ({route}) => {
   const {navigate} = useNavigation();
@@ -75,11 +76,16 @@ export const TeamMembers = ({route}) => {
           renderItem={({item, index}) => (
             <View style={[GStyles.FlexRowSpcaBetw, {height: 60}]} key={index}>
               <View style={GStyles.FlexRowCenterAlign}>
-                <View style={GStyles.ImageCircleStyle}>
-                  <Text style={{color: AppColors.green, fontSize: 20}}>
-                    {item.user.name.slice(0, 1)}
-                  </Text>
-                </View>
+                <Image
+                  source={
+                    item.user.image
+                      ? {uri: item.user.image}
+                      : ImgUrls.DefaultIcon
+                  }
+                  style={GStyles.ImageCircleStyle}
+                  resizeMethod="scale"
+                  resizeMode="contain"
+                />
                 <Text style={styles.textStyle}>{item.user.name}</Text>
               </View>
               <Text style={styles.textRequest}>

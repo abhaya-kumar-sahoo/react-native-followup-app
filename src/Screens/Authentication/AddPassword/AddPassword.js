@@ -14,7 +14,7 @@ export const AddPassword = ({route}) => {
   return (
     <View style={GStyles.Flex}>
       <AppHeader
-        rightText="2/3"
+        rightText="2/4"
         rightTextFontSize={18}
         rightTextColor={AppColors.white1}
         showLeft={false}

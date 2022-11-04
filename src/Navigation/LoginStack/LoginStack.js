@@ -15,6 +15,7 @@ import {TeamMembers} from 'Screens/ProjectMembers/ProjectMembers';
 import {RequestMembers} from 'Screens/ProjectMembers/RequestMembers';
 import {MonthReport} from 'Screens/Reports/MonthReport';
 import {Calender} from 'Screens/Calender/Calender';
+import {AddPhoto} from 'Screens/Authentication/AddPhoto/AddPhoto';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,7 @@ export const LoginStack = () => {
         <Stack.Screen name="RequestMembers" component={RequestMembers} />
         <Stack.Screen name="MonthReport" component={MonthReport} />
         <Stack.Screen name="Calender" component={Calender} />
+        <Stack.Screen name="AddPhoto" component={AddPhoto} />
       </Stack.Navigator>
     </NavigationContainer>
   );

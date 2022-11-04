@@ -31,7 +31,12 @@ export const ProjectDetails = ({route}) => {
       </Text>
       <HorizontalLine size={Width * 0.85} />
       <Text
-        onPress={() => nav.navigate('DailyWorkSchedule', {id: data._id})}
+        onPress={() =>
+          nav.navigate('DailyWorkSchedule', {
+            id: data._id,
+            name: data.project_name,
+          })
+        }
         style={styles.textStyle}>
         Daily work schedule
       </Text>

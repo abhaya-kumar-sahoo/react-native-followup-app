@@ -139,11 +139,13 @@ export const AddMembers = ({route}) => {
                 {width: Width, paddingHorizontal: 20},
               ]}>
               <View style={GStyles.FlexRowCenterAlign}>
-                <View style={GStyles.ImageCircleStyle}>
-                  <Text style={{color: AppColors.green, fontSize: 20}}>
-                    {item.name.slice(0, 1)}
-                  </Text>
-                </View>
+                <Image
+                  source={{uri: item.image}}
+                  style={GStyles.ImageCircleStyle}
+                  resizeMethod="scale"
+                  resizeMode="contain"
+                />
+
                 <HorizontalSpace />
                 <Text style={{color: AppColors.white1, fontSize: 18}}>
                   {item.name}

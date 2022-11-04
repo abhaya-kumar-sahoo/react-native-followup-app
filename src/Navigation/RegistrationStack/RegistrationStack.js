@@ -7,6 +7,7 @@ import {AddUserName} from 'Screens/Authentication/AddUserName/AddUserName';
 import {AddPassword} from 'Screens/Authentication/AddPassword/AddPassword';
 import {ReTypePassword} from 'Screens/Authentication/AddPassword/RetypePassword';
 import {LoginStack} from 'Navigation/LoginStack/LoginStack';
+import {AddPhoto} from 'Screens/Authentication/AddPhoto/AddPhoto';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,10 +16,12 @@ export const RegistrationStack = () => {
     <Stack.Navigator
       initialRouteName="LoginScreen"
       screenOptions={{headerShown: false}}>
+      <Stack.Screen name="LoginScreen" component={LoginScreen} />
+
       <Stack.Screen name="AddUserName" component={AddUserName} />
       <Stack.Screen name="AddPassword" component={AddPassword} />
       <Stack.Screen name="ReTypePassword" component={ReTypePassword} />
-      <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Screen name="AddPhoto" component={AddPhoto} />
     </Stack.Navigator>
   );
 };

@@ -15,7 +15,7 @@ import {
   isIOS,
   VerticalHeight,
 } from 'Components/GlobalStyle';
-import {AppHeader, Height, Width} from 'Components/AppHeader';
+import {AppHeader, BottomButton, Height, Width} from 'Components/AppHeader';
 import {AppColors} from 'assets/AppColors';
 import {useNavigation} from '@react-navigation/native';
 import {Loader} from 'Components/Loader';
@@ -30,7 +30,10 @@ import {getAllProjects} from 'Redux/reducers/Projects/ProjectsReducer';
 import {request} from 'ApiLogic/ApiCall';
 import {APP_APIS} from 'ApiLogic/API_URL';
 import {ProjectsSkeleton} from 'shared/Skeletons';
-
+import Icon from 'react-native-vector-icons/Entypo';
+import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ripple from 'react-native-material-ripple';
+import {ImgUrls} from 'assets/Image/ImgSrc';
 export const ProjectList = () => {
   const nav = useNavigation();
   const dispatch = useDispatch();
@@ -38,6 +41,7 @@ export const ProjectList = () => {
   const {posts, loading} = useSelector(state => state.ProjectReducer);
   const [Notifications, setNotifications] = useState([]);
   const [accept, setAccept] = useState(true);
+
   useEffect(() => {
     dispatch(getAllProjects({data: token}));
     request({url: APP_APIS.PROJECT_REQUESTS, body: JSON.stringify({token})})
@@ -53,14 +57,13 @@ export const ProjectList = () => {
     users.map(i => {
       if (i.user._id === UserData._id) {
         id = i._id;
-        console.log(i.user);
       }
     });
 
     request({
       url: APP_APIS.REQUEST_ACCEPT,
       body: JSON.stringify({token, id, accept, id}),
-      type: 'PUT',
+      method: 'PUT',
     })
       .then(res => {
         if (!res.error) {
@@ -75,23 +78,38 @@ export const ProjectList = () => {
   };
   return (
     <View style={GStyles.FlexPadding}>
-      <AppHeader
-        onPressRight={() => nav.navigate('AddProjectName')}
-        rightTextColor={AppColors.white1}
-        rightText="+ New Project"
-      />
+      <View style={[GStyles.FlexRowSpcaBetw, {paddingTop: 30}]}>
+        {UserData.image == null ? (
+          <Icon1
+            name="account-circle"
+            color={AppColors.greyLight}
+            onPress={() => {
+              nav.navigate('ProfileScreen');
+            }}
+            size={40}
+          />
+        ) : (
+          <Ripple
+            onPress={() => {
+              nav.navigate('ProfileScreen');
+            }}>
+            <Image
+              source={{uri: UserData.image}}
+              style={{width: 50, height: 50, borderRadius: 50}}
+            />
+          </Ripple>
+        )}
+
+        <Icon
+          name="circle-with-plus"
+          color={AppColors.Red1}
+          size={30}
+          onPress={() => nav.navigate('AddProjectName')}
+        />
+      </View>
+
       <VerticalHeight height={Height * 0.13} />
-      <Text
-        onPress={() => {
-          AsyncStorage.clear(),
-            dispatch(
-              RestoreToken(null),
-              dispatch(saveProgress({proceedStatus: 'login'})),
-            );
-        }}
-        style={GStyles.AuthTextStyle}>
-        Projects list
-      </Text>
+      <Text style={GStyles.AuthTextStyle}>Projects list</Text>
       <VerticalHeight height={Height * 0.05} />
       <View style={{height: Height * 0.4}}>
         <FlatList
@@ -141,9 +159,22 @@ export const ProjectList = () => {
                         justifyContent: 'center',
                         alignItems: 'center',
                       }}>
-                      <Text style={{color: AppColors.green}}>
-                        {i.user.name.slice(0, 2)}
-                      </Text>
+                      <Image
+                        source={
+                          i.user.image
+                            ? {uri: i.user.image}
+                            : ImgUrls.DefaultIcon
+                        }
+                        style={{
+                          borderRadius: 50,
+                          height: 38,
+                          width: 38,
+                          backgroundColor: AppColors.DarkGray1,
+                          borderWidth: 1,
+                        }}
+                        resizeMethod="scale"
+                        resizeMode="contain"
+                      />
                     </View>
                   );
                 })}
@@ -213,6 +244,7 @@ export const ProjectList = () => {
           })}
         </ScrollView>
       </View>
+      {/* <BottomButton title="Create Project" /> */}
     </View>
   );
 };

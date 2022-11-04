@@ -105,10 +105,12 @@ export const AppButton = ({
   backgroundColor = AppColors.Red1,
   borderRadius = 12,
   fontSize = 18,
+  disable = false,
 }) => {
   return (
     <Ripple
       onPress={onPress}
+      disabled={disable}
       style={[
         GStyles.FlexRowCenter,
         {
@@ -119,7 +121,7 @@ export const AppButton = ({
         },
       ]}>
       <Text
-        style={{color: AppColors.white, fontSize: fontSize, fontWeight: '600'}}>
+        style={{color: AppColors.white, fontSize: fontSize, fontWeight: '700'}}>
         {text}
       </Text>
     </Ripple>

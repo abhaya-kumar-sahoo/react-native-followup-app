@@ -17,6 +17,9 @@ import {MonthReport} from 'Screens/Reports/MonthReport';
 import {Calender} from 'Screens/Calender/Calender';
 import {PostDetails} from 'Screens/DailyWorkSchedule/PostDetails';
 import {AddNotes} from 'Screens/DailyWorkSchedule/AddNotes';
+import {ProfileScreen} from 'Screens/ProfileScreen/ProfileScreen';
+import {AddPhoto} from 'Screens/Authentication/AddPhoto/AddPhoto';
+import {ChatScreen} from 'Screens/DailyWorkSchedule/Chat/ChatScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,11 +36,13 @@ export const UserStack = () => {
       <Stack.Screen name="ProjectDetails" component={ProjectDetails} />
       <Stack.Screen name="TeamMembers" component={TeamMembers} />
       <Stack.Screen name="RequestMembers" component={RequestMembers} />
-
       <Stack.Screen name="MonthReport" component={MonthReport} />
       <Stack.Screen name="Calender" component={Calender} />
       <Stack.Screen name="PostDetails" component={PostDetails} />
       <Stack.Screen name="AddNotes" component={AddNotes} />
+
+      <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+      <Stack.Screen name="ChatScreen" component={ChatScreen} />
     </Stack.Navigator>
   );
 };

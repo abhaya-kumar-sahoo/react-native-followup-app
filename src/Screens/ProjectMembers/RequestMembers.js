@@ -24,6 +24,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Loader} from 'Components/Loader';
 import {useNavigation} from '@react-navigation/native';
 import {UserListSkeleton} from 'shared/Skeletons';
+import {ImgUrls} from 'assets/Image/ImgSrc';
 export const RequestMembers = ({route}) => {
   const [Search, setSearch] = useState('');
   const {token} = useSelector(state => state.UserAuth);
@@ -132,11 +133,12 @@ export const RequestMembers = ({route}) => {
           renderItem={({item, index}) => (
             <View key={index} style={[GStyles.FlexRowSpcaBetw]}>
               <View style={GStyles.FlexRowCenterAlign}>
-                <View style={GStyles.ImageCircleStyle}>
-                  <Text style={{color: AppColors.green, fontSize: 20}}>
-                    {item.name.slice(0, 1)}
-                  </Text>
-                </View>
+                <Image
+                  source={item.image ? {uri: item.image} : ImgUrls.DefaultIcon}
+                  style={GStyles.ImageCircleStyle}
+                  resizeMethod="scale"
+                  resizeMode="contain"
+                />
                 <HorizontalSpace />
                 <Text style={{color: AppColors.white1, fontSize: 18}}>
                   {item.name}

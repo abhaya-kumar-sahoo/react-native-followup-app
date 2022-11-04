@@ -7,6 +7,7 @@ import {GetMonthReport} from 'ApiLogic/ApiCall';
 import {useSelector} from 'react-redux';
 import {FullMonths} from 'Components';
 import {MonthlyReportSkeleton} from 'shared/Skeletons';
+import {ImgUrls} from 'assets/Image/ImgSrc';
 
 export const MonthReport = ({route}) => {
   const {token, UserData} = useSelector(state => state.UserAuth);
@@ -54,7 +55,11 @@ export const MonthReport = ({route}) => {
 
             const dummy = {
               _id: r._id,
-              postedBy: {_id: r.postedBy._id, name: r.postedBy.name},
+              postedBy: {
+                _id: r.postedBy._id,
+                name: r.postedBy.name,
+                image: r.postedBy.image,
+              },
               project_comments: [
                 {
                   _id: r.project_comments._id,
@@ -119,11 +124,17 @@ export const MonthReport = ({route}) => {
             <VerticalHeight height={30} />
 
             <View style={GStyles.FlexRowCenterAlign}>
-              <View style={GStyles.ImageCircleStyle}>
-                <Text style={{color: AppColors.green, fontSize: 20}}>
-                  {item.postedBy.name.slice(0, 1)}
-                </Text>
-              </View>
+              <Image
+                source={
+                  item.postedBy.image
+                    ? {uri: item.postedBy.image}
+                    : ImgUrls.DefaultIcon
+                }
+                style={GStyles.ImageCircleStyle}
+                resizeMethod="scale"
+                resizeMode="contain"
+              />
+
               <Text style={styles.title}>{item.postedBy.name}</Text>
             </View>
             {item.project_comments.map((r, k) => {

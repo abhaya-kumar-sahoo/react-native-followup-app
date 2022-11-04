@@ -29,6 +29,7 @@ import {GetPostApi} from 'ApiLogic/ApiCall';
 import {useDispatch, useSelector} from 'react-redux';
 import {getPosts} from 'Redux/reducers/PostReducer/PostReducer';
 import {MonthlyReportSkeleton} from 'shared/Skeletons';
+import {ImgUrls} from 'assets/Image/ImgSrc';
 export const Months = [
   'Jan',
   'Feb',
@@ -92,7 +93,6 @@ const DailyWorkSchedule = ({route}) => {
                     day: parseInt(item.toString().slice(6, 8)),
                     year: parseInt(item.toString().slice(0, 4)),
                   };
-                  console.log('jj', temDate);
                   setTime(temDate);
                 },
               })
@@ -100,7 +100,13 @@ const DailyWorkSchedule = ({route}) => {
             <CalenderIcon size={30} />
           </Ripple>
           <HorizontalSpace size={20} />
-          <Ripple>
+          <Ripple
+            onPress={() =>
+              nav.navigate('ChatScreen', {
+                name: route.params.name,
+                _id: route.params.id,
+              })
+            }>
             <ChatIcon size={30} />
           </Ripple>
         </View>
@@ -142,7 +148,7 @@ const DailyWorkSchedule = ({route}) => {
           }
           ListHeaderComponent={<>{loading && <MonthlyReportSkeleton />}</>}
           keyExtractor={i => i._id}
-          ListFooterComponent={<VerticalHeight height={Height * 0.6} />}
+          ListFooterComponent={<VerticalHeight height={Height * 0.9} />}
           renderItem={({item, index}) => (
             <View
               key={index}
@@ -150,19 +156,17 @@ const DailyWorkSchedule = ({route}) => {
                 width: Width,
               }}>
               <View style={GStyles.FlexRowCenterAlign}>
-                {/* <Image
-                  style={{
-                    width: 50,
-                    height: 50,
-                    borderRadius: 40,
-                    backgroundColor: AppColors.DarkGrey,
-                  }}
-                /> */}
-                <View style={GStyles.ImageCircleStyle}>
-                  <Text style={{color: AppColors.green, fontSize: 20}}>
-                    {item.postedBy.name.slice(0, 1)}
-                  </Text>
-                </View>
+                <Image
+                  source={
+                    item.postedBy.image
+                      ? {uri: item.postedBy.image}
+                      : ImgUrls.DefaultIcon
+                  }
+                  style={GStyles.ImageCircleStyle}
+                  resizeMethod="scale"
+                  resizeMode="contain"
+                />
+
                 <HorizontalSpace />
                 <Text style={{color: AppColors.white1, fontSize: 18}}>
                   {item.postedBy.name}
@@ -183,10 +187,14 @@ const DailyWorkSchedule = ({route}) => {
                       style={GStyles.FlexRowCenterAlign}>
                       <View
                         style={{
-                          backgroundColor: AppColors.green,
+                          backgroundColor: i.isCompleted
+                            ? AppColors.green
+                            : AppColors.Transparent,
                           width: 15,
                           height: 15,
                           borderRadius: 10,
+                          borderWidth: 1,
+                          borderColor: AppColors.green,
                         }}
                       />
                       <HorizontalSpace />

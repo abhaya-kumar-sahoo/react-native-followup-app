@@ -10,6 +10,7 @@ export const APP_APIS = {
   CHECK_USERNAME: BASE_URL + '/user_exist',
   GET_USER_DETAILS: BASE_URL + '/get_user',
   LOGOUT: BASE_URL + '/logout',
+  TEST: BASE_URL + '/test',
 
   // TIMELINE
   ALL_USERS: BASE_URL + '/all_users',
@@ -25,6 +26,8 @@ export const APP_APIS = {
   PROJECT_DATES: BASE_URL + '/project_dates',
   UPDATE_COMMENTS: BASE_URL + '/update_comments',
   COMMENTS_BY_MONTH: BASE_URL + '/comments_by_date',
+  GET_CHATS: BASE_URL + '/get_chat',
+  ADD_CHATS: BASE_URL + '/add_chat',
 };
 export const API_TYPE = {
   POST: 'POST',

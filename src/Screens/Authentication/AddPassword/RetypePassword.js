@@ -63,7 +63,7 @@ export const ReTypePassword = ({route}) => {
   return (
     <View style={GStyles.Flex}>
       <AppHeader
-        rightText="3/3"
+        rightText="3/4"
         rightTextFontSize={18}
         rightTextColor={AppColors.white1}
         showLeft={false}
@@ -87,7 +87,9 @@ export const ReTypePassword = ({route}) => {
         </View>
       )}
       <BottomButton
-        onPress={Registration}
+        onPress={() =>
+          nav.navigate('AddPhoto', {UserName, Password, CPassword})
+        }
         title="Next"
         disable={CPassword.length < 6 ? true : false}
       />

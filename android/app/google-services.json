@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "506966299942",
+    "project_id": "followup-c94e1",
+    "storage_bucket": "followup-c94e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506966299942:android:dfb241e36ce3c513969de7",
+        "android_client_info": {
+          "package_name": "com.followup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "506966299942-9gj1a3hpvtadgb5c2jl8rhaul0039b3g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4xKpFIDx1wxM4xOARf_ZyGiQhwGi2fQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "506966299942-9gj1a3hpvtadgb5c2jl8rhaul0039b3g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
