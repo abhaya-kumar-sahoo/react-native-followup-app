@@ -1,10 +1,10 @@
 import {Text, View} from 'react-native';
 import React from 'react';
 
-export const Calender = () => {
+export const AddTask = () => {
   return (
     <View>
-      <Text>Calender</Text>
+      <Text>AddTask</Text>
     </View>
   );
 };

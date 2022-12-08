@@ -1,10 +1,10 @@
 import {Text, View} from 'react-native';
 import React from 'react';
 
-export const Calender = () => {
+export const ChatRoom = () => {
   return (
     <View>
-      <Text>Calender</Text>
+      <Text>ChatRoom</Text>
     </View>
   );
 };

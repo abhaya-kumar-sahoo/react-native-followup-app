@@ -1,129 +1,150 @@
-import {AppColors} from 'assets/AppColors';
-import {Platform, StyleSheet, View, Text, Dimensions} from 'react-native';
-import Ripple from 'react-native-material-ripple';
-// import {Width} from './AppHeader';
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react/react-in-jsx-scope */
+import {AppColors, LinearColors} from 'assets/colors/AppColors';
+import {ImgUrls} from 'assets/Images/ImgSrc';
+import {
+  Dimensions,
+  StyleSheet,
+  View,
+  Image,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 
-export const GStyles = StyleSheet.create({
-  Flex: {
-    flex: 1,
-    backgroundColor: AppColors.DarkBG,
-  },
-  FlexPadding: {
-    flex: 1,
-    backgroundColor: AppColors.DarkBG,
-    paddingHorizontal: 20,
-  },
-  FlexRow: {
-    flexDirection: 'row',
-  },
-  FlexRowCenterAlign: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  FlexColumn: {
-    flexDirection: 'column',
-  },
-  FlexRowCenter: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  FlexColumnCenter: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  FlexRowSpcaBetw: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  Center: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-  },
-  PosAbsTop: {
-    position: 'absolute',
-    top: 10,
-  },
-  PosAbsBottom: {
-    position: 'absolute',
-    bottom: 10,
-  },
-  AuthTextStyle: {
-    color: AppColors.white1,
-    fontSize: 35,
-    fontWeight: '700',
-  },
-  ImageCircleStyle: {
-    width: 50,
-    height: 50,
-    borderRadius: 50,
-    backgroundColor: AppColors.MediumGrey1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
-export const VerticalHeight = ({height = 10}) => {
-  return <View style={{height: height}} />;
+export const AppDimens = {
+  width: Dimensions.get('screen').width,
+  height: Dimensions.get('screen').height,
 };
-export const HorizontalSpace = ({size = 10}) => {
-  return <View style={{width: size}} />;
-};
-
-export const HorizontalLine = ({
-  size = 100,
-  alignSelf = 'auto',
-  height = 2,
-}) => {
+export const RoundImageBox = ({uri = null, SIZE = 50}) => {
   return (
-    <View
-      style={{
-        height: height,
-      }}>
-      <View
-        style={{
-          width: size,
-          borderWidth: 0.5,
-          borderColor: AppColors.DarkGray1,
-          alignSelf: alignSelf,
-        }}
+    <View style={{width: SIZE, height: SIZE, borderRadius: SIZE * 2}}>
+      <Image
+        style={{width: SIZE, height: SIZE, borderRadius: SIZE * 2}}
+        resizeMode="contain"
+        resizeMethod="auto"
+        source={uri ? {uri: uri} : ImgUrls.DefaultIcon}
       />
     </View>
   );
 };
 
-export const isIOS = Platform.OS === 'ios' ? true : false;
-export const AppButton = ({
-  text = '',
-  onPress,
-  width = 150,
-  height = 45,
-  backgroundColor = AppColors.Red1,
-  borderRadius = 12,
-  fontSize = 18,
-  disable = false,
+export const LinearGradientView = ({
+  component,
+  colors = LinearColors.Black,
 }) => {
   return (
-    <Ripple
-      onPress={onPress}
-      disabled={disable}
-      style={[
-        GStyles.FlexRowCenter,
-        {
-          width: width,
-          height: height,
-          backgroundColor: backgroundColor,
-          borderRadius: borderRadius,
-        },
-      ]}>
-      <Text
-        style={{color: AppColors.white, fontSize: fontSize, fontWeight: '700'}}>
-        {text}
-      </Text>
-    </Ripple>
+    <LinearGradient
+      colors={colors}
+      style={GStyles.fullFlexRowCenter}
+      start={{x: 0, y: 0}}
+      end={{x: 0.5, y: 1.2}}>
+      {component}
+    </LinearGradient>
   );
 };
+
+export const AppButton = ({
+  text = 'Press',
+  onPress = () => {},
+  textSize = 20,
+}) => {
+  return (
+    <LinearGradient
+      colors={LinearColors.DarkRed}
+      style={{
+        borderRadius: 50,
+      }}
+      start={{x: 0, y: 0}}
+      end={{x: 1, y: 1}}>
+      <TouchableOpacity
+        onPress={onPress}
+        style={{
+          minWidth: 100,
+          minHeight: 40,
+          borderRadius: 50,
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'row',
+          paddingHorizontal: 40,
+          paddingVertical: 10,
+        }}>
+        <Text
+          style={{
+            color: AppColors.white1,
+            fontWeight: 'bold',
+            fontSize: textSize,
+          }}>
+          {text}
+        </Text>
+      </TouchableOpacity>
+    </LinearGradient>
+  );
+};
+
+export const GStyles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
+  flexHPad: {
+    flex: 1,
+    paddingHorizontal: 20,
+  },
+  flexVPad: {
+    flex: 1,
+    paddingVertical: 20,
+  },
+  alignRowCenter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  alignColumnCenter: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  fullFlexRowCenter: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+  flexRowCenter: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  flexColumnCenter: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  flexRowSpaceBetween: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  flexRowSpaceEven: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  flexRowSpaceAround: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  flexColumnSpaceBetween: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  flexColumnSpaceEven: {
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  flexColumnSpaceAround: {
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+});

@@ -1,7 +1,7 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
 import React, {useEffect} from 'react';
 import {GStyles} from 'Components/GlobalStyle';
-import {ImgUrls} from 'assets/Image/ImgSrc';
+import {ImgUrls} from 'assets/Images/ImgSrc';
 import {useDispatch} from 'react-redux';
 import {SplashLoading} from 'Redux/reducers/Authentication/AuthReducer';
 

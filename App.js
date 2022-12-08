@@ -1,20 +1,16 @@
-import React from 'react';
-import {SafeAreaView, StatusBar, StyleSheet} from 'react-native';
-import {GStyles} from 'Components/GlobalStyle';
-import {AppColors} from 'assets/AppColors';
-import {RootNav} from 'Navigation/MainRootNav/RootNav';
-import {Provider as StoreProvider} from 'react-redux';
-import {store} from 'Redux/Store/Store';
+// In App.js in a new project
 
-export const App = () => {
+import * as React from 'react';
+import {RootNav} from 'navigation/MainRootNav/RootNav';
+import {SafeAreaView, StatusBar} from 'react-native';
+
+function App() {
   return (
-    <SafeAreaView style={GStyles.Flex}>
-      <StoreProvider store={store}>
-        <StatusBar backgroundColor={AppColors.DarkBG} />
-        <RootNav />
-      </StoreProvider>
+    <SafeAreaView style={{flex: 1}}>
+      <StatusBar backgroundColor={'black'} barStyle='light-content' />
+      <RootNav />
     </SafeAreaView>
   );
-};
+}
 
-const styles = StyleSheet.create({});
+export default App;
