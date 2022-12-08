@@ -32,7 +32,6 @@ export const AppColors = {
   green1: '#00B84F',
   SkeletonHighlight: '#242424',
   SkeletonColor: '#1D1D1D',
-
   msgColor1: '#008080',
   msgColor2: '#20b2aa',
   msgColor3: '#794044',

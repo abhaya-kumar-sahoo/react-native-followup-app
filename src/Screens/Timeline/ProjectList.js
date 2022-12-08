@@ -34,6 +34,7 @@ import Icon from 'react-native-vector-icons/Entypo';
 import Icon1 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ripple from 'react-native-material-ripple';
 import {ImgUrls} from 'assets/Image/ImgSrc';
+import SwipableListButton from 'Components/AnimeCompo/SlideBottom';
 export const ProjectList = () => {
   const nav = useNavigation();
   const dispatch = useDispatch();
@@ -55,14 +56,14 @@ export const ProjectList = () => {
   const ResponseCall = (accept, users, projectId) => {
     var id;
     users.map(i => {
-      if (i.user._id === UserData._id) {
+      if (i.user?._id === UserData._id) {
         id = i._id;
       }
     });
 
     request({
       url: APP_APIS.REQUEST_ACCEPT,
-      body: JSON.stringify({token, id, accept, id}),
+      body: JSON.stringify({token, id, accept}),
       method: 'PUT',
     })
       .then(res => {
@@ -112,6 +113,8 @@ export const ProjectList = () => {
       <Text style={GStyles.AuthTextStyle}>Projects list</Text>
       <VerticalHeight height={Height * 0.05} />
       <View style={{height: Height * 0.4}}>
+        {/* <SwipableListButton /> */}
+
         <FlatList
           data={posts}
           onRefresh={() => {
@@ -161,7 +164,7 @@ export const ProjectList = () => {
                       }}>
                       <Image
                         source={
-                          i.user.image
+                          i?.user?.image
                             ? {uri: i.user.image}
                             : ImgUrls.DefaultIcon
                         }

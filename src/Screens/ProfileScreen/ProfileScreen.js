@@ -28,8 +28,6 @@ import {
   PERMISSIONS,
   RESULTS,
 } from 'react-native-permissions';
-import storage from '@react-native-firebase/storage';
-import firebase from '@react-native-firebase/app';
 
 export const ProfileScreen = () => {
   const {token, UserData} = useSelector(state => state.UserAuth);
@@ -252,30 +250,7 @@ export const ProfileScreen = () => {
     }
   };
 
-  const UpdateImage = async () => {
-    const reference = storage().ref(new Date().toString());
-
-    // const data = await reference.putFile(ImageUri).then(res => {
-    //   return res.metadata.name;
-    // });
-
-    // const url = await storage().ref(data).getDownloadURL();
-    let u =
-      'https://firebasestorage.googleapis.com/v0/b/followup-c94e1.appspot.com/o/Mon%20Oct%2031%202022%2011%3A37%3A31%20GMT%2B0530?alt=media&token=3c524ad0-ab6d-4885-b83f-b107ccd9e72f';
-
-    var desertRef = firebase.storage().child(u);
-
-    // Delete the file
-    desertRef
-      .delete()
-      .then(function () {
-        // File deleted successfully
-        console.log('gg');
-      })
-      .catch(function (error) {
-        console.log('ff');
-      });
-  };
+  const UpdateImage = async () => {};
 
   return (
     <View style={[GStyles.FlexPadding]}>
